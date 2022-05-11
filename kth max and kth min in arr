@@ -1,0 +1,11 @@
+def kth_maxANDkth_min(l,k):
+    for i in range(len(l)-1):
+        min_ele=l[i]
+        min_ind=i
+        for j in range(i+1,len(l)):
+            if min_ele>l[j]:
+                min_ind=j
+        l[i],l[min_ind]=l[min_ind],l[i]
+    return f"{k}th max is {l[-k]} and {k}th min is {l[k-1]}"
+
+kth_maxANDkth_min([9,8,7,5,4],2)
