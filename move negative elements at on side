@@ -1,0 +1,10 @@
+def Move_Neg_Aside(l):
+    for i in range(1,len(l)):
+        c=l[i]
+        j=i-1
+        while j>=0 and c<0 and l[j]>0:
+            l[j+1]=l[j]
+            j-=1
+        l[j+1]=c
+    return l
+Move_Neg_Aside([])      #input list here
