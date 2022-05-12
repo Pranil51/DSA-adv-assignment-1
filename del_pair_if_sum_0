@@ -1,0 +1,153 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class SingleLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def create(self, data):
+        new_node = Node(data)
+        self.head = new_node
+        self.tail = new_node
+        self.size = self.size + 1
+
+    def is_empty(self):
+        return self.head is None
+
+    def insert(self, data, start=False, end=False, location=0):
+        if self.is_empty():
+            print("[ERROR] List is empty please use create()")
+            return
+        new_node = Node(data)
+        if start:
+            new_node.next = self.head
+            self.head = new_node
+        elif end:
+            self.tail.next = new_node
+            self.tail = new_node
+        else:
+            if location == 0 or location == 1 or location >= self.size:
+                print("[ERROR] Please enter a proper location")
+                return
+            temp_node = self.head
+            for _ in range(1, location-1):
+                temp_node = temp_node.next
+            new_node.next = temp_node.next
+            temp_node.next = new_node
+
+        self.size = self.size + 1
+
+    def traversal(self):
+        current_node = self.head
+        while current_node is not None:
+            print("{}".format(current_node.data), end=" -> ")
+            current_node = current_node.next
+
+    def search(self, search_data):
+        current_node = self.head
+        while current_node is not None:
+            if current_node.data == search_data:
+                print("Value {} Found".format(search_data))
+                return
+            current_node = current_node.next
+
+        print("Value {} NOT Found".format(search_data))
+
+    def delete(self, start=False, end=False, location=0):
+        if not self.is_empty():
+            print("[ERROR] : Linked List Is Empty")
+            return
+        if start:
+            self.head = self.head.next
+            if self.size == 1:
+                self.tail = None
+        elif end:
+            if self.size == 1:
+                self.head = None
+                self.tail = None
+            else:
+                temp_node = self.head
+                for i in range(0, self.size - 1):
+                    temp_node = temp_node.next
+                self.tail = temp_node
+                temp_node.next = None
+        else:
+            if location == 0 or location >= self.size:
+                print("[ERROR] Please enter a proper location")
+                return
+            temp_node = self.head
+            for i in range(0, location - 1):
+                temp_node = temp_node.next
+            temp_node.next = temp_node.next.next
+        self.size = self.size - 1
+    def reverse_ll(self):
+        prev = None
+        curr = self.head
+        self.tail = curr
+        while curr is not None:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        self.head = prev
+    def merge(self,l2):
+        c1=self.head
+        c2=l2.head
+        while (c1 and c2 is not None):        
+                a=c1.next
+                c1.next=c2
+                c2.next=a
+                c2=c2.next
+                c1=c1.next
+    def del_pair_if_sum_0(self):
+        current_node = self.head
+        if self.tail == current_node.next and self.head.data + self.tail.data==0:
+            self.head = None
+            return
+        if self.tail==current_node.next.next:
+            if self.head.data + self.head.next.data ==0:
+                self.head=self.tail
+                return
+            elif self.head.data + self.tail.data == 0:
+                self.head = self.head.next
+                self.head.next = None
+                self.tail=None
+                return
+            elif self.head.next.data + self.tail.data == 0:
+                self.head.next = None
+                self.tail=None
+        while current_node is not None:
+            z_node= current_node.next
+            while z_node is not None: 
+                if current_node == self.head and z_node.next == self.tail and current_node.data +z_node.next.data ==0:
+                    self.head= self.head.next
+                    z_node.next = None
+                    self.size = self.size - 2
+                elif current_node==self.head and z_node.next.next is not None and  current_node.data + z_node.next.data==0:
+                    self.head= self.head.next
+                    z_node.next = z_node.next.next
+                    self.size = self.size - 2
+                elif z_node.next.next is None and z_node.next.data + current_node.next.data == 0:
+                    current_node.next = current_node.next.next
+                    z_node.next = None
+                    self.size = self.size - 2
+                elif  current_node.next.data + z_node.next.data == 0:      
+                    current_node.next = current_node.next.next      
+                    z_node.next = z_node.next.next
+                    self.size = self.size - 2
+                
+                z_node=z_node.next
+            current_node=current_node.next
+ll = SingleLinkedList()
+ll.create(10)
+ll.insert(20, start=True)            #Edit here to give input
+ll.insert(30, start=True)
+ll.insert(40, start=True)
+ll.insert(50, start=True)
+ll.traversal()
+del_pair_if_sum_0()
