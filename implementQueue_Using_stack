@@ -1,0 +1,36 @@
+class Queue_Using_stack():   
+    def __init__(self):
+        self.s1=[]
+        self.s2=[]
+    def enqueue(self,data):
+        if self.s1 is None:
+            self.s1.append(data)
+            return
+        while self.s1:
+            self.s2.append(self.s1.pop())
+        self.s1.append(data)
+        while self.s2: 
+            self.s1.append(self.s2.pop())
+    def dequeue(self):
+        return self.s1.pop()
+        
+    def is_empty(self):
+        return self.s1 is None
+    def peek_in_queue(self):
+        return self.s1[-1]
+    def display(self):
+        for i in self.s1:
+            print(i,end="-->")
+            
+q=Queue_Using_stack()
+q.enqueue(1)
+q.enqueue(2)
+q.enqueue(3)
+
+q.display()
+q.peek()
+q.dequeue()
+q.display()
+q.peek_in_queue()
+q.dequeue()
+q.display()            
