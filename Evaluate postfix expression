@@ -1,0 +1,69 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class Stack:
+    def __init__(self):
+        self.top = None
+
+    def is_empty(self):
+        return self.top is None
+
+    def push(self, data):
+        new_node = Node(data)
+        new_node.next = self.top
+        self.top = new_node
+
+    def pop(self):
+        if self.is_empty():
+            print("[ERROR] : Stack is empty")
+            return
+        temp_node = self.top  #save top
+        self.top = self.top.next
+        temp_node.next = None   #disattach top(pointer)
+        return temp_node.data   #return data
+
+    def peek(self):
+        if self.is_empty():
+            return ""
+        return self.top.data
+
+    def delete_stack(self):
+        self.top = None
+
+    def display(self):
+        current_node = self.top
+        while current_node is not None:
+            print(" | {} |".format(current_node.data))
+            print(" ~~~~~~")
+            current_node = current_node.next
+S=Stack()
+p="138*+"
+count=0
+while count<len(p):
+    ele=p[count]
+    if ele in "0123456789":
+        S.push(ele)
+    else:
+        if not S.is_empty():
+            if ele in "+*/":
+                if ele=="+":
+                    e1=S.pop()
+                    e2=S.pop()
+                    res=int(e1)+int(e2)
+                    S.push(str(res))
+                if ele=="*":
+                    e1=S.pop()
+                    e2=S.pop()
+                    res=int(e1)*int(e2)
+                    S.push(str(res))
+                if ele=="/":
+                    e1=S.pop()
+                    e2=S.pop()
+                    res=int(e1)/int(e2)
+                    S.push(str(res))
+    count+=1
+if not S.is_empty():
+    print(S.pop())
