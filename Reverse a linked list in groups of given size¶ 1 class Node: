@@ -1,0 +1,16 @@
+def reverse(ll,k):    
+    l=SingleLinkedList()    
+    current = ll.head
+    while current is not None:
+        s=[]
+        x=0
+        while x<k and current is not None:
+            s.append(current.data)
+            current=current.next
+            x=x+1
+        for i in range(len(s)):
+            pop=s.pop()
+            l.insert(pop,end=True)
+    return l
+a=reverse(ll,2)
+a.traversal()    
